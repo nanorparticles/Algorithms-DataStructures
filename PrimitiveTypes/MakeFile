@@ -6,7 +6,10 @@ CXXFLAGS = -std=c++17 -Wall
 count_bits: main.cpp count_bits.cpp 
 	$(CXX) $(CXXFLAGS) main.cpp count_bits.cpp -o count_bits
 
+parity: main.cpp parity.cpp
+	$(CXX) $(CXXFLAGS) main.cpp parity.cpp -o parity
+
 # Clean compiled executables
 clean:
 	rm -f count_bits
-	
+	rm -f parity
