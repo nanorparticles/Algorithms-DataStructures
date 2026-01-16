@@ -1,4 +1,5 @@
 #include "parity.h"
+#include <iostream>
 
 short Parity(unsigned long long x) {
     short result = 0; 
@@ -35,4 +36,26 @@ short ParityLookupTable(unsigned long long x) {
            precomputed_parity[(x >> WORD_SIZE) & BIT_MASK] ^
            precomputed_parity[(x >> (2 * WORD_SIZE)) & BIT_MASK] ^
            precomputed_parity[(x >> (3 * WORD_SIZE)) & BIT_MASK];
+}
+
+// Optimal method using XOR folding which is O(log n) time
+// where n is the number of bits in the integer
+// This method reduces the number of bits by half in each step
+// until only one bit remains which represents the parity
+// of the original number. This is done by XORing the number with
+// itself shifted right by powers of two.
+short ParityOptimal(unsigned long long x) {
+    x ^= x >> 32; 
+    x ^= x >>16; 
+    x ^= x >>8; 
+    x ^= x >>4; 
+    x ^= x >>2; 
+    x ^= x >> 1; 
+    return x & 1; 
+}
+
+int main() {
+    unsigned long long x = 0b1011; // example
+    std::cout << "Parity: " << ParityLookupTable(x) << std::endl;
+    return 0;
 }

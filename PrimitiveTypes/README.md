@@ -38,8 +38,6 @@ flags ^= (1 << 0);  // 10101100 ^ 00000001 → 10101101
 // Check if bit 7 is set
 bool is_set = flags & (1 << 7); // true
 
-
-
 // Clear bits 2,3,4
 flags &= ~(0b00011100); // AND with inverted mask
 
@@ -59,6 +57,17 @@ x &= (x - 1);          // 0b1010000
 x |= (x + 1);          // 0b1011001
 
 
+// Right propogate the rightmost set bit
+x | (x-1)
+
+// Compute x mod 2^n
+
+x & (2^n -1)
+
+
+//Test if x is a power of 2
+
+(x != 0) && ((x & (x - 1)) == 0)
 
 
 Signedness and Shifts

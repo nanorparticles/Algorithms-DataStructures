@@ -2,14 +2,20 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall
 
-# Target for count_bits
-count_bits: main.cpp count_bits.cpp 
-	$(CXX) $(CXXFLAGS) main.cpp count_bits.cpp -o count_bits
+# List of programs (each program is linked from main.o + <prog>.o)
+PROGRAMS = count_bits parity swap_bits
 
-parity: main.cpp parity.cpp
-	$(CXX) $(CXXFLAGS) main.cpp parity.cpp -o parity
+all: $(PROGRAMS)
 
-# Clean compiled executables
+# Link rule: build an executable by linking main.o and <prog>.o
+%: main.o %.o
+    $(CXX) $(CXXFLAGS) $^ -o $@
+
+# Compile .cpp -> .o
+%.o: %.cpp
+    $(CXX) $(CXXFLAGS) -c $< -o $@
+
 clean:
-	rm -f count_bits
-	rm -f parity
+    rm -f $(PROGRAMS) *.o
+
+.PHONY: all clean $(PROGRAMS)
