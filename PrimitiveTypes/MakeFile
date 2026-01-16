@@ -1,0 +1,12 @@
+# Compiler
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall
+
+# Target for count_bits
+count_bits: main.cpp count_bits.cpp 
+	$(CXX) $(CXXFLAGS) main.cpp count_bits.cpp -o count_bits
+
+# Clean compiled executables
+clean:
+	rm -f count_bits
+	
